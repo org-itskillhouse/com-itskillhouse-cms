@@ -202,21 +202,7 @@ export interface NewsArticle {
   title: string;
   slug: string;
   excerpt?: string | null;
-  body: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  body: string;
   heroImage?: (number | null) | Media;
   publishedAt: string;
   isPublished: boolean;

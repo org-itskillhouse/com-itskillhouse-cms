@@ -30,7 +30,7 @@ export const NewsArticles: CollectionConfig = {
     },
     {
       name: 'body',
-      type: 'richText',
+      type: 'textarea',
       required: true,
       localized: true,
     },
