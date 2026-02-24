@@ -69,7 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    'faq-items': FaqItem;
+    questions: Question;
     articles: Article;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -80,7 +80,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    'faq-items': FaqItemsSelect<false> | FaqItemsSelect<true>;
+    questions: QuestionsSelect<false> | QuestionsSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -168,9 +168,9 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faq-items".
+ * via the `definition` "questions".
  */
-export interface FaqItem {
+export interface Question {
   id: number;
   question: string;
   answer: {
@@ -256,8 +256,8 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'faq-items';
-        value: number | FaqItem;
+        relationTo: 'questions';
+        value: number | Question;
       } | null)
     | ({
         relationTo: 'articles';
@@ -345,9 +345,9 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faq-items_select".
+ * via the `definition` "questions_select".
  */
-export interface FaqItemsSelect<T extends boolean = true> {
+export interface QuestionsSelect<T extends boolean = true> {
   question?: T;
   answer?: T;
   order?: T;

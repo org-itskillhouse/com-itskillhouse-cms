@@ -34,6 +34,11 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      graphics: {
+        Logo: '/components/AdminLogo',
+      },
+    },
   },
   collections: [Users, Media, FaqItems, NewsArticles],
   globals: [HomePage, PrivacyPage],

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 export const FaqItems: CollectionConfig = {
-  slug: 'faq-items',
+  slug: 'questions',
   labels: {
     singular: 'Question',
     plural: 'Questions',
