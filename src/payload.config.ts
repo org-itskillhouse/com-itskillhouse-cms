@@ -71,7 +71,7 @@ export default buildConfig({
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   plugins: [
     seoPlugin({
-      collections: [],
+      collections: ['articles', 'questions'],
       globals: [
         'home-page',
         'privacy-page',

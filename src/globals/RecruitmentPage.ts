@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const RecruitmentPage: GlobalConfig = {
   slug: 'recruitment-page',
-  label: 'Services / IT Recruitment Page',
+  label: 'Recruitment Page',
   access: {
     read: () => true,
   },

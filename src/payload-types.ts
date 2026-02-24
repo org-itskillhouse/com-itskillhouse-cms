@@ -202,6 +202,14 @@ export interface Question {
   };
   order: number;
   isPublished: boolean;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -232,6 +240,14 @@ export interface Article {
   heroImage?: (number | null) | Media;
   publishedAt: string;
   isPublished: boolean;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -364,6 +380,13 @@ export interface QuestionsSelect<T extends boolean = true> {
   answer?: T;
   order?: T;
   isPublished?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -379,6 +402,13 @@ export interface ArticlesSelect<T extends boolean = true> {
   heroImage?: T;
   publishedAt?: T;
   isPublished?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
