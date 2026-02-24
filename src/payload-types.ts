@@ -67,10 +67,10 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
-    media: Media;
     questions: Question;
+    media: Media;
     articles: Article;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,10 +78,10 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     questions: QuestionsSelect<false> | QuestionsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -92,24 +92,24 @@ export interface Config {
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'lt') | ('en' | 'lt')[];
   globals: {
+    'articles-page': ArticlesPage;
+    'contracting-page': ContractingPage;
+    'contractors-page': ContractorsPage;
     'home-page': HomePage;
     'privacy-page': PrivacyPage;
     'projects-page': ProjectsPage;
-    'contractors-page': ContractorsPage;
-    'contracting-page': ContractingPage;
-    'recruitment-page': RecruitmentPage;
     'questions-page': QuestionsPage;
-    'articles-page': ArticlesPage;
+    'recruitment-page': RecruitmentPage;
   };
   globalsSelect: {
+    'articles-page': ArticlesPageSelect<false> | ArticlesPageSelect<true>;
+    'contracting-page': ContractingPageSelect<false> | ContractingPageSelect<true>;
+    'contractors-page': ContractorsPageSelect<false> | ContractorsPageSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'privacy-page': PrivacyPageSelect<false> | PrivacyPageSelect<true>;
     'projects-page': ProjectsPageSelect<false> | ProjectsPageSelect<true>;
-    'contractors-page': ContractorsPageSelect<false> | ContractorsPageSelect<true>;
-    'contracting-page': ContractingPageSelect<false> | ContractingPageSelect<true>;
-    'recruitment-page': RecruitmentPageSelect<false> | RecruitmentPageSelect<true>;
     'questions-page': QuestionsPageSelect<false> | QuestionsPageSelect<true>;
-    'articles-page': ArticlesPageSelect<false> | ArticlesPageSelect<true>;
+    'recruitment-page': RecruitmentPageSelect<false> | RecruitmentPageSelect<true>;
   };
   locale: 'en' | 'lt';
   user: User;
@@ -135,48 +135,6 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -209,9 +167,48 @@ export interface Question {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -247,9 +244,56 @@ export interface Article {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -276,20 +320,20 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'questions';
+        value: number | Question;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'questions';
-        value: number | Question;
-      } | null)
-    | ({
         relationTo: 'articles';
         value: number | Article;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -335,25 +379,32 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "questions_select".
  */
-export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
+export interface QuestionsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  order?: T;
+  isPublished?: T;
+  meta?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -373,25 +424,6 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "questions_select".
- */
-export interface QuestionsSelect<T extends boolean = true> {
-  question?: T;
-  answer?: T;
-  order?: T;
-  isPublished?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
@@ -408,9 +440,41 @@ export interface ArticlesSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -454,6 +518,144 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles-page".
+ */
+export interface ArticlesPage {
+  id: number;
+  title: string;
+  intro?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contracting-page".
+ */
+export interface ContractingPage {
+  id: number;
+  title: string;
+  intro?: string | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contractors-page".
+ */
+export interface ContractorsPage {
+  id: number;
+  title: string;
+  intro?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page".
  */
 export interface HomePage {
@@ -469,6 +671,28 @@ export interface HomePage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -506,6 +730,28 @@ export interface PrivacyPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -525,52 +771,40 @@ export interface ProjectsPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contractors-page".
- */
-export interface ContractorsPage {
-  id: number;
-  title: string;
-  intro?: string | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Canonical URL for this page/document.
      */
-    image?: (number | null) | Media;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contracting-page".
- */
-export interface ContractingPage {
-  id: number;
-  title: string;
-  intro?: string | null;
-  body?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
     };
-    [k: string]: unknown;
-  } | null;
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "questions-page".
+ */
+export interface QuestionsPage {
+  id: number;
+  title: string;
+  intro?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -578,6 +812,28 @@ export interface ContractingPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
+    /**
+     * Canonical URL for this page/document.
+     */
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
+    /**
+     * Optional JSON-LD object (Schema.org).
+     */
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -612,92 +868,37 @@ export interface RecruitmentPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "questions-page".
- */
-export interface QuestionsPage {
-  id: number;
-  title: string;
-  intro?: string | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Canonical URL for this page/document.
      */
-    image?: (number | null) | Media;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "articles-page".
- */
-export interface ArticlesPage {
-  id: number;
-  title: string;
-  intro?: string | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
+    canonicalUrl?: string | null;
+    robots?: {
+      index?: boolean | null;
+      follow?: boolean | null;
+    };
+    openGraphType?: ('website' | 'article') | null;
+    twitterCard?: ('summary' | 'summary_large_image') | null;
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Optional JSON-LD object (Schema.org).
      */
-    image?: (number | null) | Media;
+    structuredDataJson?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-page_select".
+ * via the `definition` "articles-page_select".
  */
-export interface HomePageSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  ctaLabel?: T;
-  ctaHref?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "privacy-page_select".
- */
-export interface PrivacyPageSelect<T extends boolean = true> {
-  title?: T;
-  body?: T;
-  version?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "projects-page_select".
- */
-export interface ProjectsPageSelect<T extends boolean = true> {
+export interface ArticlesPageSelect<T extends boolean = true> {
   title?: T;
   intro?: T;
   meta?:
@@ -706,24 +907,16 @@ export interface ProjectsPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contractors-page_select".
- */
-export interface ContractorsPageSelect<T extends boolean = true> {
-  title?: T;
-  intro?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -743,6 +936,159 @@ export interface ContractingPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contractors-page_select".
+ */
+export interface ContractorsPageSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  ctaLabel?: T;
+  ctaHref?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-page_select".
+ */
+export interface PrivacyPageSelect<T extends boolean = true> {
+  title?: T;
+  body?: T;
+  version?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects-page_select".
+ */
+export interface ProjectsPageSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "questions-page_select".
+ */
+export interface QuestionsPageSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -762,42 +1108,16 @@ export interface RecruitmentPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "questions-page_select".
- */
-export interface QuestionsPageSelect<T extends boolean = true> {
-  title?: T;
-  intro?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "articles-page_select".
- */
-export interface ArticlesPageSelect<T extends boolean = true> {
-  title?: T;
-  intro?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
+        canonicalUrl?: T;
+        robots?:
+          | T
+          | {
+              index?: T;
+              follow?: T;
+            };
+        openGraphType?: T;
+        twitterCard?: T;
+        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
