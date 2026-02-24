@@ -65,7 +65,7 @@ async function recreateIndex(
     await db.run(sql.raw(`DROP INDEX \`${oldIndex}\`;`))
   }
 
-  if (!(await indexExists(db, newIndex))) {
+  if (!(await indexExists(db, newIndex)) && (await columnExists(db, tableName, columnName))) {
     await db.run(sql.raw(`CREATE INDEX \`${newIndex}\` ON \`${tableName}\` (\`${columnName}\`);`))
   }
 }
