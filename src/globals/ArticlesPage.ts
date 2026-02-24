@@ -2,7 +2,8 @@ import type { GlobalConfig } from 'payload'
 
 export const ArticlesPage: GlobalConfig = {
   slug: 'articles-page',
-    admin: {
+  label: 'Articles Page',
+  admin: {
     group: 'Pages',
   },
   access: {
@@ -18,6 +19,11 @@ export const ArticlesPage: GlobalConfig = {
     {
       name: 'intro',
       type: 'textarea',
+      localized: true,
+    },
+    {
+      name: 'body',
+      type: 'richText',
       localized: true,
     },
   ],

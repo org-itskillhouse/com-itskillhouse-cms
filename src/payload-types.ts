@@ -524,6 +524,21 @@ export interface ArticlesPage {
   id: number;
   title: string;
   intro?: string | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -901,6 +916,7 @@ export interface RecruitmentPage {
 export interface ArticlesPageSelect<T extends boolean = true> {
   title?: T;
   intro?: T;
+  body?: T;
   meta?:
     | T
     | {
