@@ -25,6 +25,7 @@ export const PrivacyPage: GlobalConfig = {
     {
       name: 'version',
       type: 'text',
+      required: true,
       admin: {
         description: 'Example: 2026-01',
       },

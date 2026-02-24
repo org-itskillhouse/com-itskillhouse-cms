@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const RecruitmentPage: GlobalConfig = {
   slug: 'recruitment-page',
-    admin: {
+  admin: {
     group: 'Pages',
   },
   access: {
@@ -23,6 +23,7 @@ export const RecruitmentPage: GlobalConfig = {
     {
       name: 'body',
       type: 'richText',
+      required: true,
       localized: true,
     },
   ],

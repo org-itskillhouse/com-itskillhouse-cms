@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const ProjectsPage: GlobalConfig = {
   slug: 'projects-page',
-    admin: {
+  admin: {
     group: 'Pages',
   },
   access: {

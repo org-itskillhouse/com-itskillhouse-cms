@@ -67,9 +67,9 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    questions: Question;
-    media: Media;
     articles: Article;
+    media: Media;
+    questions: Question;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -78,9 +78,9 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    questions: QuestionsSelect<false> | QuestionsSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    questions: QuestionsSelect<false> | QuestionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -138,58 +138,6 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "questions".
- */
-export interface Question {
-  id: number;
-  question: string;
-  answer: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  order: number;
-  isPublished: boolean;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".
  */
 export interface Article {
@@ -223,6 +171,50 @@ export interface Article {
      */
     image?: (number | null) | Media;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "questions".
+ */
+export interface Question {
+  id: number;
+  question: string;
+  answer: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  order: number;
+  isPublished: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -276,16 +268,16 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'questions';
-        value: number | Question;
+        relationTo: 'articles';
+        value: number | Article;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'articles';
-        value: number | Article;
+        relationTo: 'questions';
+        value: number | Question;
       } | null)
     | ({
         relationTo: 'users';
@@ -335,12 +327,15 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "questions_select".
+ * via the `definition` "articles_select".
  */
-export interface QuestionsSelect<T extends boolean = true> {
-  question?: T;
-  answer?: T;
-  order?: T;
+export interface ArticlesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  excerpt?: T;
+  body?: T;
+  heroImage?: T;
+  publishedAt?: T;
   isPublished?: T;
   meta?:
     | T
@@ -370,23 +365,13 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "articles_select".
+ * via the `definition` "questions_select".
  */
-export interface ArticlesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  excerpt?: T;
-  body?: T;
-  heroImage?: T;
-  publishedAt?: T;
+export interface QuestionsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  order?: T;
   isPublished?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -479,7 +464,7 @@ export interface ContractingPage {
   id: number;
   title: string;
   intro?: string | null;
-  body?: {
+  body: {
     root: {
       type: string;
       children: {
@@ -493,7 +478,7 @@ export interface ContractingPage {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -531,7 +516,7 @@ export interface ContractorsPage {
 export interface HomePage {
   id: number;
   title: string;
-  subtitle?: string | null;
+  subtitle: string;
   ctaLabel?: string | null;
   ctaHref?: string | null;
   meta?: {
@@ -570,7 +555,7 @@ export interface PrivacyPage {
   /**
    * Example: 2026-01
    */
-  version?: string | null;
+  version: string;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -628,7 +613,7 @@ export interface RecruitmentPage {
   id: number;
   title: string;
   intro?: string | null;
-  body?: {
+  body: {
     root: {
       type: string;
       children: {
@@ -642,7 +627,7 @@ export interface RecruitmentPage {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
   meta?: {
     title?: string | null;
     description?: string | null;

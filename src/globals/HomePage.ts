@@ -19,6 +19,7 @@ export const HomePage: GlobalConfig = {
     {
       name: 'subtitle',
       type: 'textarea',
+      required: true,
       localized: true,
     },
     {
