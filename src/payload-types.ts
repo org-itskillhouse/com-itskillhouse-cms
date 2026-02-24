@@ -167,28 +167,6 @@ export interface Question {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -244,28 +222,6 @@ export interface Article {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -392,16 +348,6 @@ export interface QuestionsSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -440,16 +386,6 @@ export interface ArticlesSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -524,21 +460,6 @@ export interface ArticlesPage {
   id: number;
   title: string;
   intro?: string | null;
-  body?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -546,28 +467,6 @@ export interface ArticlesPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -602,28 +501,6 @@ export interface ContractingPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -643,28 +520,6 @@ export interface ContractorsPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -686,28 +541,6 @@ export interface HomePage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -745,28 +578,6 @@ export interface PrivacyPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -786,28 +597,6 @@ export interface ProjectsPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -827,28 +616,6 @@ export interface QuestionsPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -883,28 +650,6 @@ export interface RecruitmentPage {
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Canonical URL for this page/document.
-     */
-    canonicalUrl?: string | null;
-    robots?: {
-      index?: boolean | null;
-      follow?: boolean | null;
-    };
-    openGraphType?: ('website' | 'article') | null;
-    twitterCard?: ('summary' | 'summary_large_image') | null;
-    /**
-     * Optional JSON-LD object (Schema.org).
-     */
-    structuredDataJson?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -916,23 +661,12 @@ export interface RecruitmentPage {
 export interface ArticlesPageSelect<T extends boolean = true> {
   title?: T;
   intro?: T;
-  body?: T;
   meta?:
     | T
     | {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -952,16 +686,6 @@ export interface ContractingPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -980,16 +704,6 @@ export interface ContractorsPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1010,16 +724,6 @@ export interface HomePageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1039,16 +743,6 @@ export interface PrivacyPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1067,16 +761,6 @@ export interface ProjectsPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1095,16 +779,6 @@ export interface QuestionsPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1124,16 +798,6 @@ export interface RecruitmentPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
-        canonicalUrl?: T;
-        robots?:
-          | T
-          | {
-              index?: T;
-              follow?: T;
-            };
-        openGraphType?: T;
-        twitterCard?: T;
-        structuredDataJson?: T;
       };
   updatedAt?: T;
   createdAt?: T;

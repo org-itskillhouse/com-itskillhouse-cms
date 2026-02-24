@@ -3,7 +3,7 @@ import path from 'path'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import { buildConfig, type Field } from 'payload'
+import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { GetPlatformProxyOptions } from 'wrangler'
@@ -161,60 +161,6 @@ export default buildConfig({
   plugins: [
     seoPlugin({
       collections: ['articles', 'questions'],
-      fields: ({ defaultFields }) => {
-        const extraFields: Field[] = [
-          {
-            name: 'canonicalUrl',
-            type: 'text',
-            admin: {
-              description: 'Canonical URL for this page/document.',
-            },
-          },
-          {
-            name: 'robots',
-            type: 'group',
-            fields: [
-              {
-                name: 'index',
-                type: 'checkbox',
-                defaultValue: true,
-              },
-              {
-                name: 'follow',
-                type: 'checkbox',
-                defaultValue: true,
-              },
-            ],
-          },
-          {
-            name: 'openGraphType',
-            type: 'select',
-            defaultValue: 'website',
-            options: [
-              { label: 'Website', value: 'website' },
-              { label: 'Article', value: 'article' },
-            ],
-          },
-          {
-            name: 'twitterCard',
-            type: 'select',
-            defaultValue: 'summary_large_image',
-            options: [
-              { label: 'Summary', value: 'summary' },
-              { label: 'Summary Large Image', value: 'summary_large_image' },
-            ],
-          },
-          {
-            name: 'structuredDataJson',
-            type: 'json',
-            admin: {
-              description: 'Optional JSON-LD object (Schema.org).',
-            },
-          },
-        ]
-
-        return [...defaultFields, ...extraFields]
-      },
       generateDescription: ({ doc }) => {
         const description = pickFirstText(
           doc?.['meta']?.['description'],
@@ -265,11 +211,6 @@ export default buildConfig({
         return `${baseTitle} | IT Skill House`
       },
       generateURL: ({ collectionConfig, doc, globalConfig }) => {
-        const canonicalUrl = pickFirstText(doc?.['meta']?.['canonicalUrl'])
-        if (canonicalUrl) {
-          return canonicalUrl
-        }
-
         const globalSlug = globalConfig?.slug
         if (globalSlug) {
           const path = globalPathBySlug[globalSlug]

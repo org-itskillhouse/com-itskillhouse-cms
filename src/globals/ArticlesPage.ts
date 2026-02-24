@@ -21,10 +21,5 @@ export const ArticlesPage: GlobalConfig = {
       type: 'textarea',
       localized: true,
     },
-    {
-      name: 'body',
-      type: 'richText',
-      localized: true,
-    },
   ],
 }
