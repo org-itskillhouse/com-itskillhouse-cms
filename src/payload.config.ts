@@ -160,7 +160,7 @@ export default buildConfig({
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   plugins: [
     seoPlugin({
-      collections: ['articles', 'questions'],
+      collections: ['articles'],
       generateDescription: ({ doc }) => {
         const description = pickFirstText(
           doc?.['meta']?.['description'],
