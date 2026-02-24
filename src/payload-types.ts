@@ -202,7 +202,21 @@ export interface NewsArticle {
   title: string;
   slug: string;
   excerpt?: string | null;
-  body: string;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   heroImage?: (number | null) | Media;
   publishedAt: string;
   isPublished: boolean;
@@ -406,6 +420,14 @@ export interface HomePage {
   subtitle?: string | null;
   ctaLabel?: string | null;
   ctaHref?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -435,6 +457,14 @@ export interface PrivacyPage {
    * Example: 2026-01
    */
   version?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -447,6 +477,13 @@ export interface HomePageSelect<T extends boolean = true> {
   subtitle?: T;
   ctaLabel?: T;
   ctaHref?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -459,6 +496,13 @@ export interface PrivacyPageSelect<T extends boolean = true> {
   title?: T;
   body?: T;
   version?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
