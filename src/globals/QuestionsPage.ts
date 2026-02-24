@@ -1,0 +1,22 @@
+import type { GlobalConfig } from 'payload'
+
+export const QuestionsPage: GlobalConfig = {
+  slug: 'questions-page',
+  label: 'Questions Page',
+  access: {
+    read: () => true,
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      localized: true,
+    },
+    {
+      name: 'intro',
+      type: 'textarea',
+      localized: true,
+    },
+  ],
+}

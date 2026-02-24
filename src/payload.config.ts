@@ -13,8 +13,14 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { FaqItems } from './collections/FaqItems'
 import { NewsArticles } from './collections/NewsArticles'
+import { ArticlesPage } from './globals/ArticlesPage'
+import { ContractorsPage } from './globals/ContractorsPage'
 import { HomePage } from './globals/HomePage'
+import { ContractingPage } from './globals/ContractingPage'
 import { PrivacyPage } from './globals/PrivacyPage'
+import { ProjectsPage } from './globals/ProjectsPage'
+import { QuestionsPage } from './globals/QuestionsPage'
+import { RecruitmentPage } from './globals/RecruitmentPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,7 +47,16 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, FaqItems, NewsArticles],
-  globals: [HomePage, PrivacyPage],
+  globals: [
+    HomePage,
+    PrivacyPage,
+    ProjectsPage,
+    ContractorsPage,
+    ContractingPage,
+    RecruitmentPage,
+    QuestionsPage,
+    ArticlesPage,
+  ],
   localization: {
     locales: ['en', 'lt'],
     defaultLocale: 'en',
@@ -57,7 +72,16 @@ export default buildConfig({
   plugins: [
     seoPlugin({
       collections: [],
-      globals: ['home-page', 'privacy-page'],
+      globals: [
+        'home-page',
+        'privacy-page',
+        'projects-page',
+        'contractors-page',
+        'contracting-page',
+        'recruitment-page',
+        'questions-page',
+        'articles-page',
+      ],
       uploadsCollection: 'media',
       tabbedUI: false,
     }),
