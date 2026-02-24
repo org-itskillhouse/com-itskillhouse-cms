@@ -9,9 +9,9 @@ import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { GetPlatformProxyOptions } from 'wrangler'
 import { r2Storage } from '@payloadcms/storage-r2'
 
-import { FaqItems } from './collections/FaqItems'
+import { Articles } from './collections/Articles'
 import { Media } from './collections/Media'
-import { NewsArticles } from './collections/NewsArticles'
+import { Questions } from './collections/Questions'
 import { Users } from './collections/Users'
 import { ArticlesPage } from './globals/ArticlesPage'
 import { ContractingPage } from './globals/ContractingPage'
@@ -135,7 +135,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [FaqItems, Media, NewsArticles, Users],
+  collections: [Articles, Media, Questions, Users],
   globals: [
     ArticlesPage,
     ContractingPage,

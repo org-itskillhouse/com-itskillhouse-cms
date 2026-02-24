@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-export const NewsArticles: CollectionConfig = {
+export const Articles: CollectionConfig = {
   slug: 'articles',
   labels: {
     singular: 'Article',
