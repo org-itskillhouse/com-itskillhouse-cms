@@ -70,7 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     'faq-items': FaqItem;
-    'news-articles': NewsArticle;
+    articles: Article;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -81,7 +81,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'faq-items': FaqItemsSelect<false> | FaqItemsSelect<true>;
-    'news-articles': NewsArticlesSelect<false> | NewsArticlesSelect<true>;
+    articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -195,9 +195,9 @@ export interface FaqItem {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news-articles".
+ * via the `definition` "articles".
  */
-export interface NewsArticle {
+export interface Article {
   id: number;
   title: string;
   slug: string;
@@ -260,8 +260,8 @@ export interface PayloadLockedDocument {
         value: number | FaqItem;
       } | null)
     | ({
-        relationTo: 'news-articles';
-        value: number | NewsArticle;
+        relationTo: 'articles';
+        value: number | Article;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -357,9 +357,9 @@ export interface FaqItemsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news-articles_select".
+ * via the `definition` "articles_select".
  */
-export interface NewsArticlesSelect<T extends boolean = true> {
+export interface ArticlesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   excerpt?: T;
