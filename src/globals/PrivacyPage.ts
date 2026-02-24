@@ -3,6 +3,9 @@ import type { GlobalConfig } from 'payload'
 export const PrivacyPage: GlobalConfig = {
   slug: 'privacy-page',
   label: 'Privacy Page',
+  admin: {
+    group: 'Pages',
+  },
   access: {
     read: () => true,
   },

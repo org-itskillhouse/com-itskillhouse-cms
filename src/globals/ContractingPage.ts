@@ -2,7 +2,9 @@ import type { GlobalConfig } from 'payload'
 
 export const ContractingPage: GlobalConfig = {
   slug: 'contracting-page',
-  label: 'Contracting Page',
+    admin: {
+    group: 'Pages',
+  },
   access: {
     read: () => true,
   },

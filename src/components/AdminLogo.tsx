@@ -2,8 +2,7 @@ import type { CSSProperties } from 'react'
 
 const logoStyle: CSSProperties = {
   display: 'block',
-  height: '40px',
-  maxWidth: '220px',
+  height: '80px',
   width: 'auto',
 }
 

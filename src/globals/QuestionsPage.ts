@@ -2,7 +2,9 @@ import type { GlobalConfig } from 'payload'
 
 export const QuestionsPage: GlobalConfig = {
   slug: 'questions-page',
-  label: 'Questions Page',
+    admin: {
+    group: 'Pages',
+  },
   access: {
     read: () => true,
   },
