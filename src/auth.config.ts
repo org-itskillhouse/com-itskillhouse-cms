@@ -18,11 +18,27 @@ export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
     secret: entra.authSecret,
     trustHost: true,
     basePath,
+    debug: process.env.AUTH_DEBUG === 'true',
+    logger: {
+      error(error) {
+        const authError = error as Error & { cause?: unknown; type?: string }
+        const label = authError.type || authError.name || 'AuthError'
+        console.error(`[auth][error] ${label}: ${authError.message}`)
+        if (authError.cause) {
+          console.error('[auth][cause]:', authError.cause)
+        }
+      },
+    },
     providers: [
       microsoftEntraID({
         clientId: entra.clientId,
         clientSecret: entra.clientSecret,
         issuer: entra.issuer,
+        authorization: {
+          params: {
+            scope: 'openid profile email',
+          },
+        },
       }),
     ],
   }
