@@ -10,6 +10,26 @@ type AuthConfigEnv = {
   ENTRA_TENANT_ID?: string
 }
 
+const formatUnknown = (value: unknown): string => {
+  if (value instanceof Error) {
+    return JSON.stringify(
+      {
+        name: value.name,
+        message: value.message,
+        stack: value.stack,
+      },
+      null,
+      2,
+    )
+  }
+
+  try {
+    return JSON.stringify(value, null, 2)
+  } catch {
+    return String(value)
+  }
+}
+
 export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
   const entra = getEntraAuthEnv(env)
   const basePath = '/cms/api/auth'
@@ -25,7 +45,7 @@ export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
         const label = authError.type || authError.name || 'AuthError'
         console.error(`[auth][error] ${label}: ${authError.message}`)
         if (authError.cause) {
-          console.error('[auth][cause]:', authError.cause)
+          console.error(`[auth][cause]: ${formatUnknown(authError.cause)}`)
         }
       },
     },
@@ -34,6 +54,9 @@ export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
         clientId: entra.clientId,
         clientSecret: entra.clientSecret,
         issuer: entra.issuer,
+        client: {
+          token_endpoint_auth_method: 'client_secret_post',
+        },
         authorization: {
           params: {
             scope: 'openid profile email',
