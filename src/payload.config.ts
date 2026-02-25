@@ -157,10 +157,10 @@ export default buildConfig({
   },
   collections: [Articles, Media, Questions, Users],
   routes: {
-    admin: '/cms/admin',
-    api: '/cms/api',
-    graphQL: '/cms/api/graphql',
-    graphQLPlayground: '/cms/api/graphql-playground',
+    admin: '/admin',
+    api: '/api',
+    graphQL: '/api/graphql',
+    graphQLPlayground: '/api/graphql-playground',
   },
   globals: [
     ArticlesPage,
