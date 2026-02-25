@@ -10,7 +10,7 @@ describe('createAuthConfig', () => {
       ENTRA_TENANT_ID: 'tenant-id',
     })
 
-    expect(config.basePath).toBe('/api/auth')
+    expect(config.basePath).toBe('/cms/api/auth')
     expect(config.trustHost).toBe(true)
   })
 
@@ -22,6 +22,6 @@ describe('createAuthConfig', () => {
       ENTRA_TENANT_ID: 'tenant-id',
     })
 
-    expect(config.basePath).toBe('/api/auth')
+    expect(config.basePath).toBe('/cms/api/auth')
   })
 })

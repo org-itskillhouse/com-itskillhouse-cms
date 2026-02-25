@@ -12,7 +12,7 @@ type AuthConfigEnv = {
 
 export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
   const entra = getEntraAuthEnv(env)
-  const basePath = '/api/auth'
+  const basePath = '/cms/api/auth'
 
   return {
     secret: entra.authSecret,

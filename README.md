@@ -72,13 +72,13 @@ Required environment variables:
 - `ENTRA_CLIENT_ID`
 - `ENTRA_CLIENT_SECRET`
 - `ENTRA_TENANT_ID`
-- `AUTH_URL` (for this setup: `https://itskillhouse.com/api/auth`)
+- `AUTH_URL` (for this setup: `https://itskillhouse.com/cms/api/auth`)
 - `NEXTAUTH_URL` (same value as `AUTH_URL` for client-side auth calls)
 
 Recommended app registration redirect URIs:
 
-- Local: `http://localhost:3000/api/auth/callback/microsoft-entra-id`
-- Production: `https://itskillhouse.com/api/auth/callback/microsoft-entra-id`
+- Local: `http://localhost:3000/cms/api/auth/callback/microsoft-entra-id`
+- Production: `https://itskillhouse.com/cms/api/auth/callback/microsoft-entra-id`
 
 `users` auth has `disableLocalStrategy: true`, so local/password login is disabled.
 

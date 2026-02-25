@@ -28,8 +28,8 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
       PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-      AUTH_URL: ${{ vars.AUTH_URL || 'https://itskillhouse.com/api/auth' }}
-      NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL || 'https://itskillhouse.com/api/auth' }}
+      AUTH_URL: ${{ vars.AUTH_URL || 'https://itskillhouse.com/cms/api/auth' }}
+      NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL || 'https://itskillhouse.com/cms/api/auth' }}
       ENTRA_CLIENT_ID: ${{ vars.ENTRA_CLIENT_ID }}
       ENTRA_CLIENT_SECRET: ${{ secrets.ENTRA_CLIENT_SECRET }}
       ENTRA_TENANT_ID: ${{ vars.ENTRA_TENANT_ID }}
