@@ -3,6 +3,15 @@ import { withPayload } from '@payloadcms/next/withPayload'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: '/cms',
+  async rewrites() {
+    return [
+      {
+        source: '/api/auth/:path*',
+        destination: '/cms/api/auth/:path*',
+        basePath: false,
+      },
+    ]
+  },
 
   // Packages with Cloudflare Workers (workerd) specific code
   // Read more: https://opennext.js.org/cloudflare/howtos/workerd
