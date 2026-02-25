@@ -52,7 +52,14 @@ export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
       error(error) {
         const authError = error as Error & { cause?: unknown; type?: string }
         const label = authError.type || authError.name || 'AuthError'
-        console.error(`[auth][error] ${label}: ${authError.message}`)
+        const clientIdSuffix = entra.clientId.slice(-6)
+        const tenantSuffix = env.ENTRA_TENANT_ID?.slice(-6) ?? ''
+        const secretLength = entra.clientSecret.length
+        const authUrl = process.env.AUTH_URL ?? ''
+        const nextAuthUrl = process.env.NEXTAUTH_URL ?? ''
+        console.error(
+          `[auth][error] ${label}: ${authError.message} | env clientIdSuffix=${clientIdSuffix} tenantSuffix=${tenantSuffix} secretLength=${secretLength} authUrl=${authUrl} nextAuthUrl=${nextAuthUrl}`,
+        )
         if (authError.cause) {
           console.error(`[auth][cause]: ${formatUnknown(authError.cause)}`)
         }
