@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === '/cms') {
+  if (request.nextUrl.pathname === '/') {
     const url = request.nextUrl.clone()
-    url.pathname = '/cms/admin'
+    url.pathname = '/admin'
     return NextResponse.redirect(url, 308)
   }
 
@@ -12,5 +12,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/cms',
+  matcher: '/',
 }
