@@ -73,7 +73,7 @@ Required environment variables:
 - `ENTRA_CLIENT_SECRET`
 - `ENTRA_TENANT_ID`
 - `AUTH_URL` (for this setup: `https://itskillhouse.com/cms/api/auth`)
-- `AUTH_BASE_PATH` (for this setup: `/cms/api/auth`)
+- `NEXTAUTH_URL` (same value as `AUTH_URL` for client-side auth calls)
 
 Recommended app registration redirect URIs:
 

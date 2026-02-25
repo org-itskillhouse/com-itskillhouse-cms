@@ -8,12 +8,11 @@ type AuthConfigEnv = {
   ENTRA_CLIENT_ID?: string
   ENTRA_CLIENT_SECRET?: string
   ENTRA_TENANT_ID?: string
-  AUTH_BASE_PATH?: string
 }
 
 export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
   const entra = getEntraAuthEnv(env)
-  const basePath = env.AUTH_BASE_PATH?.trim() || '/cms/api/auth'
+  const basePath = '/api/auth'
 
   return {
     secret: entra.authSecret,
@@ -35,5 +34,4 @@ export const getAuthConfig = (): NextAuthConfig =>
     ENTRA_CLIENT_ID: process.env.ENTRA_CLIENT_ID,
     ENTRA_CLIENT_SECRET: process.env.ENTRA_CLIENT_SECRET,
     ENTRA_TENANT_ID: process.env.ENTRA_TENANT_ID,
-    AUTH_BASE_PATH: process.env.AUTH_BASE_PATH,
   })
