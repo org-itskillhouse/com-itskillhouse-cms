@@ -1,0 +1,83 @@
+body
+{
+  color: #494949 !important;
+}
+
+.ext-button.ext-primary,
+.ext-button.ext-secondary {
+  border-radius: 8px !important;
+}
+
+.ext-button.ext-primary,
+.ext-button.ext-primary:focus,
+.ext-button.ext-primary:focus:hover {
+  background-color: #9364f7 !important;
+  border-color: #9364f7 !important;
+  outline-color: #9364f7 !important;
+  color: #fff !important;
+  height: 40px !important;
+  min-width: 108px !important;
+}
+
+.ext-button.ext-secondary,
+.ext-button.ext-secondary:focus,
+.ext-button.ext-secondary:focus:hover {
+  background-color: rgb(255, 255, 255) !important;
+  border: 1px solid #8C8C8C !important;
+  outline-color: #ffffff !important;
+  color: #494949 !important;
+  height: 40px !important;
+  min-width: 108px !important;
+}
+
+.ext-sign-in-box {
+  border-radius: 12px !important;
+  color: #494949 !important;
+}
+
+.ext-input.ext-text-box {
+  background-color: #E8E8E8 !important;
+  border-radius: 8px !important;
+  border: none !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  color: #757575 !important;
+  height: 40px !important;
+}
+
+.ext-error {
+  color: #9364f7 !important;
+  padding-bottom: 8px !important;
+}
+
+.ext-title {
+  font-size: 20px;
+  padding-top: 10px;
+  color: #494949 !important;
+  margin: 16px 0 !important;
+}
+
+.ext-subtitle {
+  color: #494949 !important;
+  margin: 16px 0 !important;
+}
+
+a,
+a:link {
+  color: #9364f7 !important;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #9364f7 !important;
+  text-decoration: underline;
+}
+
+#signup {
+  display: none !important;
+}
+
+.placeholder {
+  margin-left: 10px !important;
+}

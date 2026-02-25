@@ -9,6 +9,7 @@ export type EntraAuthEnv = {
   authSecret: string
   clientId: string
   clientSecret: string
+  tenantId: string
   issuer: string
 }
 
@@ -31,6 +32,15 @@ export const getEntraAuthEnv = (input: EntraAuthEnvInput): EntraAuthEnv => {
     authSecret: values.AUTH_SECRET,
     clientId: values.ENTRA_CLIENT_ID,
     clientSecret: values.ENTRA_CLIENT_SECRET,
+    tenantId: values.ENTRA_TENANT_ID,
     issuer: `https://login.microsoftonline.com/${values.ENTRA_TENANT_ID}/v2.0`,
   }
 }
+
+export const getEntraAuthEnvFromProcess = (): EntraAuthEnv =>
+  getEntraAuthEnv({
+    AUTH_SECRET: process.env.AUTH_SECRET,
+    ENTRA_CLIENT_ID: process.env.ENTRA_CLIENT_ID,
+    ENTRA_CLIENT_SECRET: process.env.ENTRA_CLIENT_SECRET,
+    ENTRA_TENANT_ID: process.env.ENTRA_TENANT_ID,
+  })

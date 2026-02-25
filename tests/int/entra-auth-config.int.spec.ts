@@ -25,6 +25,7 @@ describe('getEntraAuthEnv', () => {
       authSecret: 'secret',
       clientId: 'client-id',
       clientSecret: 'client-secret',
+      tenantId: 'tenant-id',
       issuer: 'https://login.microsoftonline.com/tenant-id/v2.0',
     })
   })
