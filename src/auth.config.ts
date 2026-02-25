@@ -10,6 +10,15 @@ type AuthConfigEnv = {
   ENTRA_TENANT_ID?: string
 }
 
+type EntraProfileLike = {
+  sub?: string
+  oid?: string
+  name?: string
+  email?: string
+  preferred_username?: string
+  upn?: string
+}
+
 const formatUnknown = (value: unknown): string => {
   if (value instanceof Error) {
     return JSON.stringify(
@@ -28,6 +37,21 @@ const formatUnknown = (value: unknown): string => {
   } catch {
     return String(value)
   }
+}
+
+const isValidEmail = (value: unknown): value is string =>
+  typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+
+const resolveEntraEmail = (profile: EntraProfileLike): string => {
+  const candidates = [profile.email, profile.preferred_username, profile.upn]
+  for (const candidate of candidates) {
+    if (isValidEmail(candidate)) {
+      return candidate.trim().toLowerCase()
+    }
+  }
+
+  const stableId = profile.oid ?? profile.sub ?? 'user'
+  return `${stableId}@users.itskillhouse.com`
 }
 
 export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
@@ -57,12 +81,10 @@ export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
         const secretLength = entra.clientSecret.length
         const authUrl = process.env.AUTH_URL ?? ''
         const nextAuthUrl = process.env.NEXTAUTH_URL ?? ''
+        const causeInline = authError.cause ? formatUnknown(authError.cause) : 'null'
         console.error(
-          `[auth][error] ${label}: ${authError.message} | env clientIdSuffix=${clientIdSuffix} tenantSuffix=${tenantSuffix} secretLength=${secretLength} authUrl=${authUrl} nextAuthUrl=${nextAuthUrl}`,
+          `[auth][error] ${label}: ${authError.message} | env clientIdSuffix=${clientIdSuffix} tenantSuffix=${tenantSuffix} secretLength=${secretLength} authUrl=${authUrl} nextAuthUrl=${nextAuthUrl} | cause=${causeInline}`,
         )
-        if (authError.cause) {
-          console.error(`[auth][cause]: ${formatUnknown(authError.cause)}`)
-        }
       },
     },
     providers: [
@@ -77,6 +99,16 @@ export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
           params: {
             scope: 'openid profile email',
           },
+        },
+        profile(profile) {
+          const normalizedProfile = profile as EntraProfileLike
+          const email = resolveEntraEmail(normalizedProfile)
+          return {
+            id: normalizedProfile.sub ?? normalizedProfile.oid ?? crypto.randomUUID(),
+            name: normalizedProfile.name ?? email,
+            email,
+            image: null,
+          }
         },
       }),
     ],
