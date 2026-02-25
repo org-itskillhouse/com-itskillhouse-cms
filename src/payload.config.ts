@@ -22,7 +22,7 @@ import { PrivacyPage } from './globals/PrivacyPage'
 import { ProjectsPage } from './globals/ProjectsPage'
 import { QuestionsPage } from './globals/QuestionsPage'
 import { RecruitmentPage } from './globals/RecruitmentPage'
-import { authConfig } from './auth.config'
+import { getAuthConfig } from './auth.config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -188,7 +188,7 @@ export default buildConfig({
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   plugins: [
     authjsPlugin({
-      authjsConfig: authConfig,
+      authjsConfig: getAuthConfig(),
     }),
     seoPlugin({
       collections: ['articles'],
