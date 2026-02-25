@@ -92,6 +92,7 @@ export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
         clientId: entra.clientId,
         clientSecret: entra.clientSecret,
         issuer: entra.issuer,
+        allowDangerousEmailAccountLinking: true,
         client: {
           token_endpoint_auth_method: 'client_secret_post',
         },
