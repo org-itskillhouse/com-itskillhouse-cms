@@ -62,6 +62,24 @@ This will take you to Cloudflare to login and then you can use the Wrangler CLI 
 
 Wrangler is pretty smart so it will automatically bind your services for local development just by running `pnpm dev`.
 
+## Admin SSO (Microsoft Entra ID)
+
+This project is configured to use Entra ID via Auth.js for Payload admin authentication.
+
+Required environment variables:
+
+- `AUTH_SECRET`
+- `ENTRA_CLIENT_ID`
+- `ENTRA_CLIENT_SECRET`
+- `ENTRA_TENANT_ID`
+
+Recommended app registration redirect URIs:
+
+- Local: `http://localhost:3000/api/auth/callback/microsoft-entra-id`
+- Production with `/cms` base path: `https://itskillhouse.com/cms/api/auth/callback/microsoft-entra-id`
+
+`users` auth has `disableLocalStrategy: true`, so local/password login is disabled.
+
 ## Deployments
 
 When you're ready to deploy, first make sure you have created your migrations:

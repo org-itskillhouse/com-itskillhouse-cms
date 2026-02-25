@@ -4,6 +4,7 @@ import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
+import { authjsPlugin } from 'payload-authjs'
 import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { GetPlatformProxyOptions } from 'wrangler'
@@ -21,6 +22,7 @@ import { PrivacyPage } from './globals/PrivacyPage'
 import { ProjectsPage } from './globals/ProjectsPage'
 import { QuestionsPage } from './globals/QuestionsPage'
 import { RecruitmentPage } from './globals/RecruitmentPage'
+import { authConfig } from './auth.config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -185,6 +187,9 @@ export default buildConfig({
   },
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   plugins: [
+    authjsPlugin({
+      authjsConfig: authConfig,
+    }),
     seoPlugin({
       collections: ['articles'],
       generateDescription: ({ doc }) => {
