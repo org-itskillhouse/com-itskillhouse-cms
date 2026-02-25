@@ -150,12 +150,7 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
-    },
-    components: {
-      graphics: {
-        Logo: '/components/AdminLogo',
-      },
-    },
+    }
   },
   collections: [Articles, Media, Questions, Users],
   routes: {
