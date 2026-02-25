@@ -17,13 +17,23 @@ export const Users: CollectionConfig = {
 
         const mutableData = data as Record<string, unknown>
 
-        // Some auth adapter update paths can validate `id` from incoming data.
-        // Ensure it is present for updates when Payload already knows the document id.
-        if ((operation === 'update' || operation === 'create') && !mutableData.id) {
-          const fallbackId =
-            (req as { routeParams?: { id?: string | number } } | undefined)?.routeParams?.id ?? originalDoc?.id
-          if (fallbackId !== undefined && fallbackId !== null) {
-            mutableData.id = String(fallbackId)
+        if (operation === 'update' || operation === 'create') {
+          if (typeof mutableData.id === 'number') {
+            mutableData.id = String(mutableData.id)
+          }
+
+          if (typeof mutableData.id === 'string' && mutableData.id.trim().length === 0) {
+            delete mutableData.id
+          }
+
+          // Some auth adapter paths can validate `id` from incoming data.
+          // Ensure it is present and normalized when Payload already knows the document id.
+          if (!mutableData.id) {
+            const fallbackId =
+              (req as { routeParams?: { id?: string | number } } | undefined)?.routeParams?.id ?? originalDoc?.id
+            if (fallbackId !== undefined && fallbackId !== null) {
+              mutableData.id = String(fallbackId)
+            }
           }
         }
 
