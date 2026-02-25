@@ -10,9 +10,21 @@ export const Users: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [
-      ({ data }) => {
+      ({ data, operation, originalDoc, req }) => {
         if (!data || typeof data !== 'object') {
           return data
+        }
+
+        const mutableData = data as Record<string, unknown>
+
+        // Some auth adapter update paths can validate `id` from incoming data.
+        // Ensure it is present for updates when Payload already knows the document id.
+        if ((operation === 'update' || operation === 'create') && !mutableData.id) {
+          const fallbackId =
+            (req as { routeParams?: { id?: string | number } } | undefined)?.routeParams?.id ?? originalDoc?.id
+          if (fallbackId !== undefined && fallbackId !== null) {
+            mutableData.id = String(fallbackId)
+          }
         }
 
         const maybeAccounts = (data as { accounts?: unknown }).accounts
@@ -26,7 +38,10 @@ export const Users: CollectionConfig = {
           }
 
           const record = account as Record<string, unknown>
-          if (!record.id) {
+          if (typeof record.id === 'number') {
+            record.id = String(record.id)
+          }
+          if (!record.id || (typeof record.id === 'string' && record.id.trim().length === 0)) {
             record.id = crypto.randomUUID()
           }
           return record
