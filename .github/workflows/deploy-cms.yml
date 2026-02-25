@@ -29,6 +29,7 @@ jobs:
       PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
       AUTH_URL: ${{ vars.AUTH_URL }}
+      AUTH_BASE_PATH: ${{ vars.AUTH_BASE_PATH }}
       ENTRA_CLIENT_ID: ${{ vars.ENTRA_CLIENT_ID }}
       ENTRA_CLIENT_SECRET: ${{ secrets.ENTRA_CLIENT_SECRET }}
       ENTRA_TENANT_ID: ${{ vars.ENTRA_TENANT_ID }}
@@ -62,6 +63,7 @@ jobs:
           printf '%s' "$PAYLOAD_SECRET" | pnpm wrangler secret put PAYLOAD_SECRET
           printf '%s' "$AUTH_SECRET" | pnpm wrangler secret put AUTH_SECRET
           printf '%s' "$AUTH_URL" | pnpm wrangler secret put AUTH_URL
+          printf '%s' "$AUTH_BASE_PATH" | pnpm wrangler secret put AUTH_BASE_PATH
           printf '%s' "$ENTRA_CLIENT_SECRET" | pnpm wrangler secret put ENTRA_CLIENT_SECRET
           printf '%s' "$ENTRA_CLIENT_ID" | pnpm wrangler secret put ENTRA_CLIENT_ID
           printf '%s' "$ENTRA_TENANT_ID" | pnpm wrangler secret put ENTRA_TENANT_ID
