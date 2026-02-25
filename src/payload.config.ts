@@ -34,7 +34,27 @@ const cloudflare =
     ? await getCloudflareContextFromWrangler()
     : await getCloudflareContext({ async: true })
 
-const publicSiteUrl = (process.env.PUBLIC_SITE_URL || 'https://itskillhouse.com').replace(/\/+$/, '')
+const normalizePublicSiteUrl = (value: string): string => {
+  const trimmed = (value || 'https://itskillhouse.com').trim().replace(/\/+$/, '')
+  if (!trimmed) {
+    return 'https://itskillhouse.com'
+  }
+
+  try {
+    const url = new URL(trimmed)
+    const normalizedPath = url.pathname
+      .replace(/\/+$/, '')
+      .replace(/\/cms$/i, '')
+      .replace(/\/admin$/i, '')
+
+    const path = normalizedPath && normalizedPath !== '/' ? normalizedPath : ''
+    return `${url.origin}${path}`
+  } catch {
+    return 'https://itskillhouse.com'
+  }
+}
+
+const publicSiteUrl = normalizePublicSiteUrl(process.env.PUBLIC_SITE_URL || 'https://itskillhouse.com')
 
 const globalPathBySlug: Record<string, string> = {
   'articles-page': '/news',
@@ -136,6 +156,12 @@ export default buildConfig({
     },
   },
   collections: [Articles, Media, Questions, Users],
+  routes: {
+    admin: '/cms/admin',
+    api: '/cms/api',
+    graphQL: '/cms/api/graphql',
+    graphQLPlayground: '/cms/api/graphql-playground',
+  },
   globals: [
     ArticlesPage,
     ContractingPage,
