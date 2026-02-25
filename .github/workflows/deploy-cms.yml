@@ -28,9 +28,9 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
       PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-      ENTRA_CLIENT_ID: ${{ secrets.ENTRA_CLIENT_ID }}
+      ENTRA_CLIENT_ID: ${{ vars.ENTRA_CLIENT_ID }}
       ENTRA_CLIENT_SECRET: ${{ secrets.ENTRA_CLIENT_SECRET }}
-      ENTRA_TENANT_ID: ${{ secrets.ENTRA_TENANT_ID }}
+      ENTRA_TENANT_ID: ${{ vars.ENTRA_TENANT_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
