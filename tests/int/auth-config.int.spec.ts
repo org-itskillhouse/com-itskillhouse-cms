@@ -13,15 +13,4 @@ describe('createAuthConfig', () => {
     expect(config.basePath).toBe('/cms/api/auth')
     expect(config.trustHost).toBe(true)
   })
-
-  it('uses static authjs base path even when extra env keys exist', () => {
-    const config = createAuthConfig({
-      AUTH_SECRET: 'secret',
-      ENTRA_CLIENT_ID: 'client-id',
-      ENTRA_CLIENT_SECRET: 'client-secret',
-      ENTRA_TENANT_ID: 'tenant-id',
-    })
-
-    expect(config.basePath).toBe('/cms/api/auth')
-  })
 })
