@@ -33,12 +33,21 @@ const formatUnknown = (value: unknown): string => {
 export const createAuthConfig = (env: AuthConfigEnv): NextAuthConfig => {
   const entra = getEntraAuthEnv(env)
   const basePath = '/cms/api/auth'
+  const authDebug = process.env.AUTH_DEBUG === 'true'
+
+  if (authDebug) {
+    const clientIdSuffix = entra.clientId.slice(-6)
+    const tenantIdSuffix = env.ENTRA_TENANT_ID?.slice(-6) ?? ''
+    console.log(
+      `[auth][config] basePath=${basePath} clientIdSuffix=${clientIdSuffix} tenantSuffix=${tenantIdSuffix} secretLength=${entra.clientSecret.length}`,
+    )
+  }
 
   return {
     secret: entra.authSecret,
     trustHost: true,
     basePath,
-    debug: process.env.AUTH_DEBUG === 'true',
+    debug: authDebug,
     logger: {
       error(error) {
         const authError = error as Error & { cause?: unknown; type?: string }
