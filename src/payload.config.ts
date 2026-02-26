@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import { authjsPlugin } from 'payload-authjs'
@@ -184,6 +185,34 @@ export default buildConfig({
   plugins: [
     authjsPlugin({
       authjsConfig: getAuthConfig(),
+    }),
+    mcpPlugin({
+      collections: {
+        articles: {
+          enabled: {
+            create: true,
+            delete: true,
+            find: true,
+            update: true,
+          },
+        },
+        media: {
+          enabled: {
+            create: false,
+            delete: false,
+            find: true,
+            update: false,
+          },
+        },
+        questions: {
+          enabled: {
+            create: false,
+            delete: false,
+            find: true,
+            update: false,
+          },
+        },
+      },
     }),
     seoPlugin({
       collections: ['articles'],
