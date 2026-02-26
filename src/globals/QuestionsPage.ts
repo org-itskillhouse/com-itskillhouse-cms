@@ -15,10 +15,5 @@ export const QuestionsPage: GlobalConfig = {
       required: true,
       localized: true,
     },
-    {
-      name: 'intro',
-      type: 'textarea',
-      localized: true,
-    },
   ],
 }

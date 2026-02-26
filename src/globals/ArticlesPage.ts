@@ -16,10 +16,5 @@ export const ArticlesPage: GlobalConfig = {
       required: true,
       localized: true,
     },
-    {
-      name: 'intro',
-      type: 'textarea',
-      localized: true,
-    },
   ],
 }

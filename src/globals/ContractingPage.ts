@@ -16,11 +16,6 @@ export const ContractingPage: GlobalConfig = {
       localized: true,
     },
     {
-      name: 'intro',
-      type: 'textarea',
-      localized: true,
-    },
-    {
       name: 'body',
       type: 'richText',
       required: true,

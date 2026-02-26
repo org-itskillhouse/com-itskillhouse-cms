@@ -16,11 +16,6 @@ export const RecruitmentPage: GlobalConfig = {
       localized: true,
     },
     {
-      name: 'intro',
-      type: 'textarea',
-      localized: true,
-    },
-    {
       name: 'body',
       type: 'richText',
       required: true,
