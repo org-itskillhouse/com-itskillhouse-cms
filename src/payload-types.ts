@@ -579,7 +579,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface ArticlesPage {
   id: number;
   title: string;
-  intro?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -598,7 +597,6 @@ export interface ArticlesPage {
 export interface ContractingPage {
   id: number;
   title: string;
-  intro?: string | null;
   body: {
     root: {
       type: string;
@@ -651,9 +649,6 @@ export interface ContractorsPage {
 export interface HomePage {
   id: number;
   title: string;
-  subtitle: string;
-  ctaLabel?: string | null;
-  ctaHref?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -728,7 +723,6 @@ export interface ProjectsPage {
 export interface QuestionsPage {
   id: number;
   title: string;
-  intro?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -747,7 +741,6 @@ export interface QuestionsPage {
 export interface RecruitmentPage {
   id: number;
   title: string;
-  intro?: string | null;
   body: {
     root: {
       type: string;
@@ -780,7 +773,6 @@ export interface RecruitmentPage {
  */
 export interface ArticlesPageSelect<T extends boolean = true> {
   title?: T;
-  intro?: T;
   meta?:
     | T
     | {
@@ -798,7 +790,6 @@ export interface ArticlesPageSelect<T extends boolean = true> {
  */
 export interface ContractingPageSelect<T extends boolean = true> {
   title?: T;
-  intro?: T;
   body?: T;
   meta?:
     | T
@@ -835,9 +826,6 @@ export interface ContractorsPageSelect<T extends boolean = true> {
  */
 export interface HomePageSelect<T extends boolean = true> {
   title?: T;
-  subtitle?: T;
-  ctaLabel?: T;
-  ctaHref?: T;
   meta?:
     | T
     | {
@@ -892,7 +880,6 @@ export interface ProjectsPageSelect<T extends boolean = true> {
  */
 export interface QuestionsPageSelect<T extends boolean = true> {
   title?: T;
-  intro?: T;
   meta?:
     | T
     | {
@@ -910,7 +897,6 @@ export interface QuestionsPageSelect<T extends boolean = true> {
  */
 export interface RecruitmentPageSelect<T extends boolean = true> {
   title?: T;
-  intro?: T;
   body?: T;
   meta?:
     | T

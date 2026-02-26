@@ -1817,13 +1817,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "cta_href": {
-          "name": "cta_href",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
         "updated_at": {
           "name": "updated_at",
           "type": "text",
@@ -1853,20 +1846,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
-        },
-        "subtitle": {
-          "name": "subtitle",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "cta_label": {
-          "name": "cta_label",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
           "autoincrement": false
         },
         "meta_title": {
@@ -2536,6 +2515,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "aa7b2730-4b59-4fed-a434-3c8f4f141f90",
+  "id": "5b3b8cb1-f151-4071-8671-4f10edd336c9",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
