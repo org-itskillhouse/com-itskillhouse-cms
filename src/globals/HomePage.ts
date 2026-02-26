@@ -16,20 +16,5 @@ export const HomePage: GlobalConfig = {
       required: true,
       localized: true,
     },
-    {
-      name: 'subtitle',
-      type: 'textarea',
-      required: true,
-      localized: true,
-    },
-    {
-      name: 'ctaLabel',
-      type: 'text',
-      localized: true,
-    },
-    {
-      name: 'ctaHref',
-      type: 'text',
-    },
   ],
 }

@@ -181,7 +181,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  logger: {
+  logger: { // https://github.com/payloadcms/payload/issues/14849
     destination: process.stdout,
     options: {
       level: "info",
@@ -201,7 +201,6 @@ export default buildConfig({
                   ? console.log
                   : console.debug;
 
-          // Also write to console for Wrangler Tail
           consoleFn(...args);
         },
       },
