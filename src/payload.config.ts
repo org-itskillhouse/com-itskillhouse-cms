@@ -175,7 +175,14 @@ export default buildConfig({
     defaultLocale: 'en',
   },
   editor: lexicalEditor({
-    features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature(), InlineToolbarFeature()],
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures.filter((feature) => {
+        const disabledKeys = ['align', 'indent', 'checklist', 'relationship']
+        return !disabledKeys.includes(feature.key)
+      }),
+      FixedToolbarFeature(),
+      InlineToolbarFeature(),
+    ],
   }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
