@@ -1,7 +1,7 @@
 import type { NextAuthConfig } from 'next-auth'
 import microsoftEntraID from 'next-auth/providers/microsoft-entra-id'
 
-import { type EntraAuthEnvInput, getEntraAuthEnv, getEntraAuthEnvFromProcess } from '@/auth/entra-auth-env'
+import { type EntraAuthEnvInput, getEntraAuthEnv, getEntraAuthEnvInputFromProcess } from '@/auth/entra-auth-env'
 
 type EntraProfileLike = {
   sub?: string
@@ -62,4 +62,4 @@ export const createAuthConfig = (env: EntraAuthEnvInput): NextAuthConfig => {
   }
 }
 
-export const getAuthConfig = (): NextAuthConfig => createAuthConfig(getEntraAuthEnvFromProcess())
+export const getAuthConfig = (): NextAuthConfig => createAuthConfig(getEntraAuthEnvInputFromProcess())
