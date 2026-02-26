@@ -21,10 +21,11 @@ export const Articles: CollectionConfig = {
       localized: true,
     },
     {
-      name: 'slug',
-      type: 'text',
+      name: "slug",
+      type: "text",
       required: true,
       unique: true,
+      localized: true,
       index: true,
     },
     {

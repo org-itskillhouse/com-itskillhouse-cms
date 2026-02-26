@@ -13,4 +13,19 @@ describe('createAuthConfig', () => {
     expect(config.basePath).toBe('/cms/api/auth')
     expect(config.trustHost).toBe(true)
   })
+
+  it('can build config in allowMissingEnv mode for CLI', () => {
+    const config = createAuthConfig(
+      {
+        AUTH_SECRET: '',
+        ENTRA_CLIENT_ID: '',
+        ENTRA_CLIENT_SECRET: '',
+        ENTRA_TENANT_ID: '',
+      },
+      { allowMissingEnv: true },
+    )
+
+    expect(config.basePath).toBe('/cms/api/auth')
+    expect(config.providers).toHaveLength(1)
+  })
 })

@@ -310,6 +310,18 @@ export interface PayloadMcpApiKey {
      * Allow clients to find questions.
      */
     find?: boolean | null;
+    /**
+     * Allow clients to create questions.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update questions.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete questions.
+     */
+    delete?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -510,6 +522,9 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | T
     | {
         find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
       };
   updatedAt?: T;
   createdAt?: T;

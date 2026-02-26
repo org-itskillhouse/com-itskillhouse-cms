@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { getEntraAuthEnv, getEntraAuthEnvFromProcess } from '@/auth/entra-auth-env'
+import {
+  getEntraAuthEnv,
+  getEntraAuthEnvFromProcess,
+  shouldAllowMissingEntraAuthEnvForCLI,
+} from '@/auth/entra-auth-env'
 
 describe('getEntraAuthEnv', () => {
   it('throws when required env vars are missing', () => {
@@ -30,6 +34,26 @@ describe('getEntraAuthEnv', () => {
     })
   })
 
+  it('allows missing env when explicitly enabled (for CLI contexts)', () => {
+    const env = getEntraAuthEnv(
+      {
+        AUTH_SECRET: '',
+        ENTRA_CLIENT_ID: '',
+        ENTRA_CLIENT_SECRET: '',
+        ENTRA_TENANT_ID: '',
+      },
+      { allowMissing: true },
+    )
+
+    expect(env).toEqual({
+      authSecret: 'payload-cli-auth-secret',
+      clientId: 'payload-cli-client-id',
+      clientSecret: 'payload-cli-client-secret',
+      tenantId: 'common',
+      issuer: 'https://login.microsoftonline.com/common/v2.0',
+    })
+  })
+
   it('reads and validates auth env directly from process.env', () => {
     const originalEnv = { ...process.env }
     process.env.AUTH_SECRET = 'secret'
@@ -50,5 +74,17 @@ describe('getEntraAuthEnv', () => {
     } finally {
       process.env = originalEnv
     }
+  })
+})
+
+describe('shouldAllowMissingEntraAuthEnvForCLI', () => {
+  it('returns true for payload migrate and generate commands', () => {
+    expect(shouldAllowMissingEntraAuthEnvForCLI(['node', '/x/payload/bin.js', 'migrate:create'])).toBe(true)
+    expect(shouldAllowMissingEntraAuthEnvForCLI(['node', '/x/payload/bin.js', 'generate:importmap'])).toBe(true)
+    expect(shouldAllowMissingEntraAuthEnvForCLI(['node', '/x/payload/bin.js', 'generate:types'])).toBe(true)
+  })
+
+  it('returns false for non-payload runtime commands', () => {
+    expect(shouldAllowMissingEntraAuthEnvForCLI(['node', '.next/server.js'])).toBe(false)
   })
 })

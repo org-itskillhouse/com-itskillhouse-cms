@@ -1,7 +1,16 @@
 import type { NextAuthConfig } from 'next-auth'
 import microsoftEntraID from 'next-auth/providers/microsoft-entra-id'
 
-import { type EntraAuthEnvInput, getEntraAuthEnv, getEntraAuthEnvInputFromProcess } from '@/auth/entra-auth-env'
+import {
+  type EntraAuthEnvInput,
+  getEntraAuthEnv,
+  getEntraAuthEnvInputFromProcess,
+  shouldAllowMissingEntraAuthEnvForCLI,
+} from '@/auth/entra-auth-env'
+
+type CreateAuthConfigOptions = {
+  allowMissingEnv?: boolean
+}
 
 type EntraProfileLike = {
   sub?: string
@@ -27,8 +36,8 @@ const resolveEntraEmail = (profile: EntraProfileLike): string => {
   return `${stableId}@users.itskillhouse.com`
 }
 
-export const createAuthConfig = (env: EntraAuthEnvInput): NextAuthConfig => {
-  const entra = getEntraAuthEnv(env)
+export const createAuthConfig = (env: EntraAuthEnvInput, options: CreateAuthConfigOptions = {}): NextAuthConfig => {
+  const entra = getEntraAuthEnv(env, { allowMissing: options.allowMissingEnv })
 
   return {
     secret: entra.authSecret,
@@ -62,4 +71,7 @@ export const createAuthConfig = (env: EntraAuthEnvInput): NextAuthConfig => {
   }
 }
 
-export const getAuthConfig = (): NextAuthConfig => createAuthConfig(getEntraAuthEnvInputFromProcess())
+export const getAuthConfig = (): NextAuthConfig =>
+  createAuthConfig(getEntraAuthEnvInputFromProcess(), {
+    allowMissingEnv: shouldAllowMissingEntraAuthEnvForCLI(),
+  })
