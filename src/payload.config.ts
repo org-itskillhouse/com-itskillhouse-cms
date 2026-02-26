@@ -3,7 +3,15 @@ import path from 'path'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { mcpPlugin } from '@payloadcms/plugin-mcp'
-import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  AlignFeature,
+  ChecklistFeature,
+  FixedToolbarFeature,
+  IndentFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+  RelationshipFeature,
+} from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import { authjsPlugin } from 'payload-authjs'
 import { fileURLToPath } from 'url'
@@ -177,8 +185,8 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures.filter((feature) => {
-        const disabledKeys = ['align', 'indent', 'checklist', 'relationship']
-        return !disabledKeys.includes(feature.key)
+        const unwantedFeatures = [AlignFeature, IndentFeature, ChecklistFeature, RelationshipFeature]
+        return !unwantedFeatures.some(Unwanted => feature.constructor === Unwanted)
       }),
       FixedToolbarFeature(),
       InlineToolbarFeature(),
