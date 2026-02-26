@@ -206,10 +206,10 @@ export default buildConfig({
         },
         questions: {
           enabled: {
-            create: false,
-            delete: false,
+            create: true,
+            delete: true,
             find: true,
-            update: false,
+            update: true,
           },
         },
       },
