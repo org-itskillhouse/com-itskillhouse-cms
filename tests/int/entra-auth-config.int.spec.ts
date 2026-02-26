@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getEntraAuthEnv } from '@/auth/entra-auth-env'
+import { getEntraAuthEnv, getEntraAuthEnvFromProcess } from '@/auth/entra-auth-env'
 
 describe('getEntraAuthEnv', () => {
   it('throws when required env vars are missing', () => {
@@ -28,5 +28,27 @@ describe('getEntraAuthEnv', () => {
       tenantId: 'tenant-id',
       issuer: 'https://login.microsoftonline.com/tenant-id/v2.0',
     })
+  })
+
+  it('reads and validates auth env directly from process.env', () => {
+    const originalEnv = { ...process.env }
+    process.env.AUTH_SECRET = 'secret'
+    process.env.ENTRA_CLIENT_ID = 'client-id'
+    process.env.ENTRA_CLIENT_SECRET = 'client-secret'
+    process.env.ENTRA_TENANT_ID = 'tenant-id'
+
+    try {
+      const env = getEntraAuthEnvFromProcess()
+
+      expect(env).toEqual({
+        authSecret: 'secret',
+        clientId: 'client-id',
+        clientSecret: 'client-secret',
+        tenantId: 'tenant-id',
+        issuer: 'https://login.microsoftonline.com/tenant-id/v2.0',
+      })
+    } finally {
+      process.env = originalEnv
+    }
   })
 })
