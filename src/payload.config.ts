@@ -161,6 +161,7 @@ export default buildConfig({
     graphQLPlayground: '/api/graphql-playground',
   },
   secret: process.env.PAYLOAD_SECRET || '',
+  telemetry: false,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
