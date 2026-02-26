@@ -4,7 +4,7 @@ import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import { buildConfig } from 'payload'
+import { buildConfig, LoggerOptions } from 'payload'
 import { authjsPlugin } from 'payload-authjs'
 import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
@@ -146,6 +146,13 @@ const toLabelText = (value: unknown): string => {
   return ''
 }
 
+const cloudflareLogger: LoggerOptions = {
+  debug: (obj) => console.debug(obj),
+  error: (obj) => console.error(obj),
+  info: (obj) => console.info(obj),
+  warn: (obj) => console.warn(obj),
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -181,6 +188,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  logger: isProduction ? cloudflareLogger : false,
   db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
   plugins: [
     authjsPlugin({
