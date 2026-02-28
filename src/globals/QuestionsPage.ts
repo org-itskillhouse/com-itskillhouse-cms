@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const QuestionsPage: GlobalConfig = {
   slug: 'questions-page',
+  label: 'FAQ Page',
   admin: {
     group: 'Pages',
   },
