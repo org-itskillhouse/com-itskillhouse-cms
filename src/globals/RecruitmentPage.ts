@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const RecruitmentPage: GlobalConfig = {
   slug: 'recruitment-page',
+  label: 'IT Recruitment',
   admin: {
     group: 'Pages',
   },

@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const PrivacyPage: GlobalConfig = {
   slug: 'privacy-page',
-  label: 'Privacy Page',
+  label: 'Privacy Policy',
   admin: {
     group: 'Pages',
   },

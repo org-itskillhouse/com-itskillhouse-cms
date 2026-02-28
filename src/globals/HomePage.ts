@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const HomePage: GlobalConfig = {
   slug: 'home-page',
-  label: 'Home Page',
+  label: 'Home',
   admin: {
     group: 'Pages',
   },

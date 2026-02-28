@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const ArticlesPage: GlobalConfig = {
   slug: 'articles-page',
-  label: 'News Page',
+  label: 'News',
   admin: {
     group: 'Pages',
   },
