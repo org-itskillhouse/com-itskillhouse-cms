@@ -64,8 +64,8 @@ export default buildConfig({
     ],
   }),
   globals: [
-    HomePage,
     ContractorsPage,
+    HomePage,
     QuestionsPage,
     ContractingPage,
     RecruitmentPage,
